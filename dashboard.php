@@ -25,7 +25,7 @@
         <div class="col-md-4">
           <div class="card shadow"> 
             <img src="assets/img/transaction.png" width="80px" class="mx-auto mt-3 mb-2">
-            <a href="transaksi/transaksi.php" class="stretched-link"><h4 class="text-center mt-1">Pembayaran</h4></a>
+            <a href="pembayaran/data-pembayaran.php" class="stretched-link"><h4 class="text-center mt-1">Pembayaran</h4></a>
           </div>
         </div>
         <div class="col-md-4">

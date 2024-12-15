@@ -4,7 +4,7 @@
 		header('location:../new_login.php');	
 	}
   include '../koneksi.php';
-  $id = $_GET['id_admin'];
+  $id = $_GET['id'];
   $tampiluser = mysqli_query($konek,"SELECT * FROM admin WHERE id_admin = $id");
 
   while ($data = mysqli_fetch_array($tampiluser)) {

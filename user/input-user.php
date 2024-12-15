@@ -29,7 +29,11 @@
               <label>Role </label>
             </div>
             <div class="col-md-5">
-              <input type="text" name="role" class="form-control rounded-pill">
+              <select name="role" class="form-control rounded-pill">
+                  <option value="" disabled>- Pilih Role -</option>
+                    <option value="admin">Admin</option>
+                  <option value="user">User</option>
+              </select>
             </div>
           </div>
           <div class="form-group row">
@@ -45,7 +49,7 @@
               <label>Password</label>
             </div>
             <div class="col-md-5">
-              <input type="text" name="password" class="form-control rounded-pill">
+              <input type="password" name="password" class="form-control rounded-pill">
             </div>
           </div>
           <div class="form-group row">
@@ -72,32 +76,34 @@
 
 <!-- simpan data -->
 <?php
-  if($_SERVER['REQUEST_METHOD']=='POST'){
-    
-    //variabel untuk menampung inputan dari form
-    $role  = $_POST['role'];
-    $username   = $_POST['username'];
-    $password = $_POST['password']; 
-    $namalengkap  = $_POST['namalengkap'];
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $role = $_POST['role'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $namalengkap = $_POST['namalengkap'];
 
-    //proses simpan
-    if($role=='' || $username=='' ||$password=='' || $namalengkap==''){
-      echo "Form belum lengkap...";
-    }else{
-      $simpan = mysqli_query($konek, "insert into admin(role,username,password,namalengkap)
-        values('$role','$username',$password,'$namalengkap')");
-          if ($simpan) {
-              echo "<script>
+    // Validasi inputan
+    if ($role == '' || $username == '' || $password == '' || $namalengkap == '') {
+      echo "<script>alert('Form belum lengkap!');</script>";
+    } else {
+      // cek duplikasi username
+      $cek_username = mysqli_query($konek, "SELECT * FROM admin WHERE username = '$username'");
+      if (mysqli_num_rows($cek_username) > 0) {
+        // Jika username duplikat
+        echo "<script>alert('Username sudah terdaftar!');</script>";
+      } else {
+        // Jika tidak ada duplikasi, simpan data
+        $simpan = mysqli_query($konek, "INSERT INTO admin (role, username, password, namalengkap) 
+          VALUES ('$role', '$username', '$password', '$namalengkap')");
+        if ($simpan) {
+          echo "<script>
                   alert('Data berhasil disimpan!');
                   window.location.href = 'data-user.php';
-                  </script>";
-          }else{
-        $ds=mysqli_fetch_array(mysqli_query($konek, "SELECT id_admin FROM admin ORDER BY id_admin DESC LIMIT 1"));
-        $idadmin = $ds['id_admin'];
-
-        header('location:data-user.php');
+                </script>";
+        } else {
+          echo "<script>alert('Terjadi kesalahan saat menyimpan data!');</script>";
+        }
       }
     }
-
   }
 ?>

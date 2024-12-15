@@ -1,6 +1,6 @@
 <?php 
 	include '../koneksi.php';
-	$result = mysqli_query($konek,"SELECT * FROM kelas ORDER BY kelas_jurusan ASC");
+	$result = mysqli_query($konek,"SELECT * FROM kelas ORDER BY id ASC");
 	session_start();
 	if (!isset($_SESSION['login'])) {
 		header('location:../new_login.php');
@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Data Kelas</title>
+  <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
